@@ -83,4 +83,11 @@
 
   # Time zone (can be overridden per host)
   time.timeZone = lib.mkDefault "America/New_York";
+
+  environment.variables = {
+    ADBLOCK = "1";
+    DISABLE_OPENCOLLECTIVE = "1";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+  };
 }

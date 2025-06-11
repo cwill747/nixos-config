@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 # IMPORTANT QUOTING RULES FOR THIS FILE:
 # When writing Lua code in extraLuaConfig, use double quotes ("") for empty strings,
