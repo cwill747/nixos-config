@@ -1,0 +1,44 @@
+# Nix build artifacts
+result
+result-*
+
+# Direnv cache
+.direnv/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# System files
+*~
+.#*
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Local configuration (if any)
+local.nix
+secrets.nix
+
+# Home Manager backup files
+*.backup
+
+# Temporary files
+tmp/
+.tmp/
+
+# Nix-darwin backup files
+*.backup-*
+
+# Hardware configuration (system-specific)
+# hosts/*/hardware-configuration.nix should be generated per system
+
+# Build outputs
+build/
+dist/
+example/

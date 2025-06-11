@@ -1,0 +1,6 @@
+---
+description:
+globs: *.nix
+alwaysApply: false
+---
+After each change to any Nix files, run `nix flake check --no-build`. No need to run this if you didn't change a nix file in this step. If that passes, run `nix flake check --no-build --all-systems`.
