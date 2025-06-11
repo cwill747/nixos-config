@@ -33,7 +33,6 @@
     mise  # formerly rtx/asdf
 
     # Terminal enhancements
-    tmux
     tree-sitter
     eza  # modern replacement for ls (formerly exa)
     bat

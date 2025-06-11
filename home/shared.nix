@@ -4,6 +4,7 @@
   # Import neovim configuration
   imports = [
     ./neovim.nix
+    ./all/tmux.nix
   ];
 
   # Basic home-manager settings
