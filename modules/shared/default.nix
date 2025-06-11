@@ -50,10 +50,12 @@
     gcc
     gnumake  # GNU make
     pkg-config
+    firefox
 
     # DevOps and Infrastructure (basic tools)
     kubectl
     k9s
+    docker
     docker-compose
 
     # Database tools

@@ -20,23 +20,18 @@ Features:
    ```bash
    # Install Nix using the Determinate Systems installer (recommended)
    curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh
-
-   # Enable flakes (add to ~/.config/nix/nix.conf or /etc/nix/nix.conf)
-   echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
 
 2. **For macOS**: Install nix-darwin
    ```bash
-   nix run nix-darwin -- switch --flake .#$(hostname)
+   nix run nix-darwin -- switch --flake .#work-darwin
    ```
-
-3. **For Ubuntu/Linux**: Install Home Manager standalone or use NixOS
 
 ### Installation
 
 1. **Clone this repository:**
    ```bash
-   git clone <your-repo-url> ~/.config/nixos
+   git clone git@github.com:cwill747/nixos-config.git ~/.config/nixos
    cd ~/.config/nixos
    ```
 
@@ -48,16 +43,22 @@ Features:
 darwin-rebuild switch --flake .#$(hostname)
 ```
 
-#### Ubuntu (NixOS)
+#### Ubuntu/Linux with Nix Package Manager (Home Manager only)
 
-```bash
-sudo nixos-rebuild switch --flake .#$(hostname)
-```
-
-#### Ubuntu (Home Manager only)
+For regular Ubuntu/Linux systems where you've installed just the Nix package manager (not full NixOS):
 
 ```bash
 nix run home-manager/master -- switch --flake .#$(whoami)@$(hostname)
+```
+
+**Note**: `nixos-rebuild` is NOT available when you install Nix on Ubuntu - that command only exists on full NixOS systems. Use Home Manager instead.
+
+#### Full NixOS System (if running NixOS as your OS)
+
+Only use this if you're running NixOS as your operating system (not Ubuntu with Nix installed):
+
+```bash
+sudo nixos-rebuild switch --flake .#$(hostname)
 ```
 
 ## Configuration Structure
@@ -178,6 +179,17 @@ home-manager switch --flake .#$(whoami)@$(hostname)  # Home Manager only
 
 ## Troubleshooting
 
+### `nixos-rebuild` command not found on Ubuntu
+If you get "command not found" for `nixos-rebuild` on Ubuntu, this is expected! You've installed the Nix package manager on Ubuntu, not full NixOS. Use Home Manager instead:
+
+```bash
+# This is what you should use on Ubuntu with Nix installed:
+nix run home-manager/master -- switch --flake .#$(whoami)@$(hostname)
+
+# NOT this (only works on full NixOS systems):
+sudo nixos-rebuild switch --flake .#$(hostname)
+```
+
 ### Flake Evaluation Errors
 ```bash
 # Check flake syntax
@@ -209,14 +221,14 @@ The configuration automatically detects the platform and applies appropriate set
 
 ## Features by Platform
 
-| Feature | macOS | Linux/Ubuntu |
-|---------|-------|---------------|
-| Fish Shell | ✅ | ✅ |
-| Home Manager | ✅ | ✅ |
-| System Management | nix-darwin | NixOS |
-| Homebrew Integration | ✅ | ❌ |
-| GUI Applications | Homebrew Casks | Nixpkgs |
-| System Defaults | ✅ | Limited |
+| Feature | macOS | Ubuntu/Linux with Nix | Full NixOS |
+|---------|-------|----------------------|------------|
+| Fish Shell | ✅ | ✅ | ✅ |
+| Home Manager | ✅ | ✅ | ✅ |
+| System Management | nix-darwin | ❌ (Home Manager only) | NixOS |
+| Homebrew Integration | ✅ | ❌ | ❌ |
+| GUI Applications | Homebrew Casks | System package manager | Nixpkgs |
+| System Defaults | ✅ | ❌ | ✅ |
 
 ## Development
 

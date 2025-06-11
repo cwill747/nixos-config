@@ -1,0 +1,26 @@
+{ config, lib, pkgs, inputs, ... }:
+
+{
+  # Ubuntu/Linux system configuration
+
+  imports = [
+    ./hardware-configuration.nix  # Will need to be generated on the target system
+  ];
+
+  # Boot configuration (adjust based on your system)
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
+  # Network configuration
+  networking = {
+    hostName = "cwill-nixos-jump";
+  };
+
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken.
+  system.stateVersion = "24.05";
+}

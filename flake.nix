@@ -54,6 +54,10 @@
         ./modules/darwin
       ];
 
+      commonLinuxModules = [
+        ./modules/linux
+      ];
+
       # Home manager configuration shared across systems
       homeManagerConfig = { lib, pkgs, ... }: {
         imports = [
@@ -69,6 +73,13 @@
         ];
       };
 
+      linuxHomeManagerConfig = { lib, pkgs, ... }: {
+        imports = [
+          ./home/shared.nix
+          ./home/linux.nix
+        ];
+      };
+
     in {
       # Development shells
       devShells = forAllSystems (system: {
@@ -81,10 +92,10 @@
           shellHook = ''
             echo "NixOS Configuration Development Shell"
             echo "Available commands:"
-            echo "  nixos-rebuild switch --flake .#personal-linux"
+            echo "  nixos-rebuild switch --flake .#cameron-nixos-jump"
             echo "  darwin-rebuild switch --flake .#work-darwin"
             echo "  darwin-rebuild switch --flake .#personal-darwin"
-            echo "  home-manager switch --flake .#cameron@personal-linux"
+            echo "  home-manager switch --flake .#cameron@cameron-nixos-jump"
             echo "  home-manager switch --flake .#cameron@work-darwin"
             echo "  home-manager switch --flake .#cameron@personal-darwin"
           '';
@@ -93,23 +104,23 @@
 
       # NixOS configurations (for Linux systems)
       nixosConfigurations = {
-        # Personal Linux machine
-        "personal-linux" = nixpkgs.lib.nixosSystem {
+        # Work Linux machine (cameron-nixos-jump)
+        "cameron-nixos-jump" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/linux
+            ./hosts/work-linux
             home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 backupFileExtension = "backup";
-                users.cameron = homeManagerConfig;
+                users.cameron = linuxHomeManagerConfig;
                 extraSpecialArgs = { inherit inputs; };
               };
             }
-          ] ++ commonModules;
+          ] ++ commonModules ++ commonLinuxModules;
         };
       };
 
@@ -189,13 +200,18 @@
 
       # Standalone home-manager configurations (for non-NixOS systems)
       homeConfigurations = {
-        # Personal Linux system with standalone home-manager
-        "cameron@personal-linux" = home-manager.lib.homeManagerConfiguration {
+        # Work Linux system with standalone home-manager
+        "cameron@cameron-nixos-jump" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
             ./home/shared.nix
             ./home/linux.nix
+            ({ lib, ... }: {
+              programs.git = {
+                userEmail = lib.mkForce "stephen.will@tanium.com";
+              };
+            })
           ];
         };
 
