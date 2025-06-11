@@ -167,10 +167,6 @@
         };
       }
       {
-        name = "fzf-fish";
-        src = pkgs.fishPlugins.grc.src;
-      }
-      {
         name = "z";
         src = pkgs.fishPlugins.z.src;
       }
@@ -210,7 +206,6 @@
     bat
     eza  # modern replacement for ls (formerly exa)
     delta  # git diff tool
-    grc # needed by fzf-fish
   ];
 
   # Git configuration
