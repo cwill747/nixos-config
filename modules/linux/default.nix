@@ -24,6 +24,8 @@
     ninja
 
     corretto21
+
+    llvmPackages_20.libcxxClang
   ];
   # Services
   services = {
