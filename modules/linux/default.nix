@@ -15,6 +15,15 @@
     usbutils
     pciutils
     lshw
+
+    libiconv
+    autoconf
+    automake
+    libtool
+
+    ninja
+
+    corretto21
   ];
   # Services
   services = {

@@ -42,7 +42,7 @@
     go
     nodejs
     yarn
-    python3
+    python3Full
     pipenv
     ruby
     rustup

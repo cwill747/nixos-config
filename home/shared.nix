@@ -53,6 +53,7 @@
       push.default = "current";
       pull.rebase = true;
     };
+    lfs.enable = true;
   };
 
   # Direnv integration
