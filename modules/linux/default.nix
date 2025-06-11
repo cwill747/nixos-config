@@ -25,7 +25,9 @@
 
     corretto21
 
+    # Compiler toolchain
     llvmPackages_20.libcxxClang
+    llvmPackages_20.libcxx
   ];
   # Services
   services = {
@@ -82,5 +84,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # Fish likes doing this - https://discourse.nixos.org/t/slow-build-at-building-man-cache/52365/6
+  documentation.man.generateCaches = false;
 
 }
