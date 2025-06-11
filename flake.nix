@@ -92,10 +92,10 @@
           shellHook = ''
             echo "NixOS Configuration Development Shell"
             echo "Available commands:"
-            echo "  nixos-rebuild switch --flake .#cameron-nixos-jump"
+            echo "  nixos-rebuild switch --flake .#cwill-nixos-jump"
             echo "  darwin-rebuild switch --flake .#work-darwin"
             echo "  darwin-rebuild switch --flake .#personal-darwin"
-            echo "  home-manager switch --flake .#cameron@cameron-nixos-jump"
+            echo "  home-manager switch --flake .#cameron@cwill-nixos-jump"
             echo "  home-manager switch --flake .#cameron@work-darwin"
             echo "  home-manager switch --flake .#cameron@personal-darwin"
           '';
@@ -104,8 +104,8 @@
 
       # NixOS configurations (for Linux systems)
       nixosConfigurations = {
-        # Work Linux machine (cameron-nixos-jump)
-        "cameron-nixos-jump" = nixpkgs.lib.nixosSystem {
+        # Work Linux machine (cwill-nixos-jump)
+        "cwill-nixos-jump" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -201,7 +201,7 @@
       # Standalone home-manager configurations (for non-NixOS systems)
       homeConfigurations = {
         # Work Linux system with standalone home-manager
-        "cameron@cameron-nixos-jump" = home-manager.lib.homeManagerConfiguration {
+        "cameron@cwill-nixos-jump" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
