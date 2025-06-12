@@ -28,7 +28,6 @@
     # Compiler toolchain
     llvmPackages_20.libcxxClang
     llvmPackages_20.libcxx
-    llvmPackages_20.libcxxabi
   ];
   # Services
   services = {
