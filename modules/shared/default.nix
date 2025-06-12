@@ -31,6 +31,7 @@
     fzf
     direnv
     mise  # formerly rtx/asdf
+    mosh
 
     # Terminal enhancements
     tree-sitter
@@ -51,7 +52,8 @@
     gnumake  # GNU make
     pkg-config
     firefox
-
+    bazel-buildtools
+    bazelisk
     # DevOps and Infrastructure (basic tools)
     kubectl
     k9s
