@@ -28,6 +28,7 @@
     # Compiler toolchain
     llvmPackages_20.libcxxClang
     llvmPackages_20.libcxx
+    llvmPackages_20.libcxxabi
   ];
   # Services
   services = {
@@ -88,4 +89,5 @@
   # Fish likes doing this - https://discourse.nixos.org/t/slow-build-at-building-man-cache/52365/6
   documentation.man.generateCaches = false;
 
+  programs.mosh.enable = true;
 }
