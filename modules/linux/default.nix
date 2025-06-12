@@ -3,6 +3,7 @@
 {
   networking = {
     networkmanager.enable = true;
+    firewall.enable = true;
   };
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -16,18 +17,7 @@
     pciutils
     lshw
 
-    libiconv
-    autoconf
-    automake
-    libtool
-
-    ninja
-
     corretto21
-
-    # Compiler toolchain
-    llvmPackages_20.libcxxClang
-    llvmPackages_20.libcxx
   ];
   # Services
   services = {

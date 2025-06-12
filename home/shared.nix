@@ -18,10 +18,18 @@
   home.packages = with pkgs; [
     # Essential development tools
     git
+    git-lfs
     curl
     wget
     jq
+    delta
+    yq
+    go
+    nodejs
+    yarn
+    python3Full
 
+    tree-sitter
     # File management and search
     fd
     ripgrep
@@ -39,6 +47,18 @@
     bat
     eza  # modern replacement for ls (formerly exa)
     delta  # git diff tool
+
+    mosh
+
+    sqlite
+
+    _1password-cli
+    postman
+    powershell
+    wireshark  # GUI version (CLI already included elsewhere)
+
+    bazel-buildtools
+    bazelisk
   ];
 
   # Git configuration

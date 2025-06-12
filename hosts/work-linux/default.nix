@@ -18,6 +18,18 @@
     hostName = "cwill-nixos-jump";
   };
 
+  environment.systemPackages = with pkgs; [
+    llvmPackages_18.libcxxClang
+    llvmPackages_18.libcxx
+    libiconv
+    autoconf
+    automake
+    libtool
+    ninja
+    cmake
+    gnumake  # GNU make
+  ];
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

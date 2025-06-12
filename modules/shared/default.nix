@@ -25,43 +25,24 @@
     wget
     htop
     tree
-    jq
-    yq
     ripgrep
     fzf
-    direnv
-    mise  # formerly rtx/asdf
     mosh
 
-    # Terminal enhancements
-    tree-sitter
     eza  # modern replacement for ls (formerly exa)
     bat
-    delta
 
     # Development tools and languages
-    go
-    nodejs
-    yarn
-    python3Full
     pipenv
     ruby
     rustup
-    cmake
-    gcc
-    gnumake  # GNU make
     pkg-config
     firefox
-    bazel-buildtools
-    bazelisk
     # DevOps and Infrastructure (basic tools)
     kubectl
     k9s
-    docker
-    docker-compose
 
     # Database tools
-    redis
     sqlite
 
     # Network and security tools
@@ -75,12 +56,6 @@
     p7zip
     watch
     coreutils
-
-    # Cross-platform applications (moved from Homebrew casks)
-    _1password-cli
-    postman
-    powershell
-    wireshark  # GUI version (CLI already included elsewhere)
   ];
 
   programs.fish.enable = true;
