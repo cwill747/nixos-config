@@ -200,6 +200,19 @@
 
       # Standalone home-manager configurations (for non-NixOS systems)
       homeConfigurations = {
+        "cameron@work-linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/shared.nix
+            ./home/linux.nix
+            ({ lib, ... }: {
+              programs.git = {
+                userEmail = lib.mkForce "stephen.will@tanium.com";
+              };
+            })
+          ];
+        };
         # Work Linux system with standalone home-manager
         "cameron@cwill-nixos-jump" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
