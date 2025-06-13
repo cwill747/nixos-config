@@ -3,6 +3,12 @@
 {
   # Linux-specific home-manager configuration
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
+
   # Add Linux-specific paths and settings to fish
   programs.fish.shellInit = lib.mkBefore ''
     # Linux-specific paths
