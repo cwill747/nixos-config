@@ -17,13 +17,6 @@
     pciutils
     lshw
 
-    # Build essentials
-    libiconv
-    autoconf
-    automake
-    libtool
-    gcc
-
     ninja
 
     corretto21

@@ -27,17 +27,15 @@
 
 
   environment.systemPackages = with pkgs; [
-    llvmPackages_18.libcxxClang
     llvmPackages_18.libcxx
-    llvmPackages_18.stdenv
     clang_18
-    libiconv
+    gcc
+    gnumake
     autoconf
     automake
     libtool
     ninja
     cmake
-    gnumake  # GNU make
   ];
 
   programs.nix-ld = {
