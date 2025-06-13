@@ -19,10 +19,9 @@
   };
 
   environment.sessionVariables = {
-    CC = "clang";
-    CXX = "clang++";
     CXXFLAGS="-I${pkgs.llvmPackages_18.libcxx}/include/c++/v1";
-    LDFLAGS="-L${pkgs.llvmPackages_18.libcxx}/lib";
+    LDFLAGS="-L${pkgs.llvmPackages_18.libcxx}/lib -latomic";
+    LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
   };
 
 

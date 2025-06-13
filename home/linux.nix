@@ -24,6 +24,12 @@
     };
   };
 
+  # Environment variables for linking
+  home.sessionVariables = {
+    CC = "clang";
+    CXX = "clang++";
+  };
+
   home.packages = with pkgs; [
     jetbrains.clion
     jetbrains.jdk
