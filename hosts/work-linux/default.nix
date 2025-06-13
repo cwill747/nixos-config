@@ -30,6 +30,7 @@
     llvmPackages_18.libcxxClang
     llvmPackages_18.libcxx
     llvmPackages_18.stdenv
+    clang_18
     libiconv
     autoconf
     automake
