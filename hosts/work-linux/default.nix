@@ -18,9 +18,18 @@
     hostName = "cwill-nixos-jump";
   };
 
+  environment.sessionVariables = {
+    CC = "clang";
+    CXX = "clang++";
+    CXXFLAGS="-I${pkgs.llvmPackages_18.libcxx}/include/c++/v1";
+    LDFLAGS="-L${pkgs.llvmPackages_18.libcxx}/lib";
+  };
+
+
   environment.systemPackages = with pkgs; [
     llvmPackages_18.libcxxClang
     llvmPackages_18.libcxx
+    llvmPackages_18.stdenv
     libiconv
     autoconf
     automake
@@ -29,6 +38,11 @@
     cmake
     gnumake  # GNU make
   ];
+
+  programs.nix-ld = {
+    enable = true;
+  };
+
 
 
   # This value determines the NixOS release from which the default
