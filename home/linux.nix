@@ -28,8 +28,6 @@
   home.sessionVariables = {
     CC = "clang";
     CXX = "clang++";
-    CXXFLAGS="-I${pkgs.llvmPackages_18.libcxx}/include/c++/v1";
-    LDFLAGS="-L${pkgs.llvmPackages_18.libcxx}/lib -l:libatomic.a";
   };
 
   home.packages = with pkgs; [
@@ -37,6 +35,7 @@
     jetbrains.jdk
     docker
     docker-compose
-    gcc-unwrapped  # Provides libatomic
+    llvmPackages_18.stdenv
+    gcc13
   ];
 }
