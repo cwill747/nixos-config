@@ -57,6 +57,12 @@
       setw -g mode-keys vi
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
+
+      # Remove SSH_AUTH_SOCK to disable tmux automatically resetting the variable
+      set -g update-environment "DISPLAY SSH_ASKPASS SSH_AGENT_PID \
+                            SSH_CONNECTION WINDOWID XAUTHORITY"
+      # Use a symlink to look up SSH authentication
+      setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
     '';
   };
 }

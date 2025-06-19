@@ -7,6 +7,9 @@
     ./hardware-configuration.nix  # Will need to be generated on the target system
   ];
 
+  boot.initrd.kernelModules = ["hv_vmbus" "hv_storvsc"];
+  boot.kernel.sysctl."vm.overcommit_memory" = "1"; # https://github.com/NixOS/nix/issues/421
+
   # Boot configuration (adjust based on your system)
   boot.loader = {
     systemd-boot.enable = true;
@@ -34,10 +37,11 @@
     enable = true;
   };
 
+  virtualisation.hypervGuest.enable = true;
 
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken.
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }
