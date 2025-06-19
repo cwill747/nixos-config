@@ -57,7 +57,6 @@
     sqlite
 
     _1password-cli
-    postman
     powershell
     wireshark  # GUI version (CLI already included elsewhere)
 
