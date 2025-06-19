@@ -42,6 +42,7 @@
     # Development tools
     direnv
     mise
+    pre-commit
 
     # System monitoring
     htop
