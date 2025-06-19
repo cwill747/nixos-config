@@ -30,6 +30,13 @@
     CXX = "clang++";
   };
 
+  programs.jetbrains-remote = {
+    enable = true;
+    ides = with pkgs.jetbrains; [
+      clion
+    ];
+  };
+
   home.packages = with pkgs; [
     jetbrains.clion
     jetbrains.jdk
