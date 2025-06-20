@@ -75,6 +75,9 @@
       init.defaultBranch = "main";
       push.default = "current";
       pull.rebase = true;
+      alias = {
+        root = "git rev-parse --show-toplevel";
+      };
     };
     lfs.enable = true;
   };
