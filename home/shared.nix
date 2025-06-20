@@ -6,6 +6,7 @@
     ./all/neovim.nix
     ./all/tmux.nix
     ./all/fish.nix
+    ./all/mise.nix
   ];
 
   home.username = "cameron";
