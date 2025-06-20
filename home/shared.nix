@@ -70,7 +70,32 @@
     userName = lib.mkDefault "Cameron Will";
     userEmail = lib.mkDefault "stephen.will@tanium.com";  # Work email (overridden on personal mac)
     aliases = {
-      root = "git rev-parse --show-toplevel";
+      default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/";
+      precommit = "diff --cached --diff-algorithm=minimal -w";
+      branch-name = "!git rev-parse --abbrev-ref HEAD";
+      fb = "!git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
+      publish = "!git push -u origin $(git branch-name)";
+      recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f";
+      code-review = "difftool origin/develop...";
+      merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f";
+      merge-log = "!git log `git merge-span .. $1`";
+      merge-diff = "!git diff `git merge-span ... $1`";
+      merge-difftool = "!git difftool `git merge-span ... $1`";
+      rebase-branch = "!git rebase -i `git merge-base develop HEAD`";
+      unstage = "reset HEAD";
+      diffc = "diff --cached";
+      assume = "update-index --assume-unchanged";
+      unassume = "update-index --no-assume-unchanged";
+      assumed = "!git ls-files -v | grep ^h | cut -c 3-";
+      ours = "!f() { git checkout --ours $@ && git add $@; }; f";
+      theirs = "!f() { git checkout --theirs $@ && git add $@; }; f";
+      recent = "!git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(refname:short)'";
+      overview = "!git log --all --oneline --no-merges";
+      diff = "!git diff --word-diff";
+      graph = "!git log --graph --oneline --all --decorate --date=iso";
+      pushf = "push --force-with-lease";
+      root = "rev-parse --show-toplevel";
+      bazel = "show -s --date=\"format:%z\" --pretty='format:%C(auto)    commit = \"%H\",%n    shallow_since = \"%at %ad\",' HEAD";
     };
     extraConfig = {
       init.defaultBranch = "main";
