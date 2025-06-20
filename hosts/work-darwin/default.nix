@@ -42,4 +42,22 @@
       "yubico-authenticator"
     ];
   };
+
+  local.dock = {
+    enable   = true;
+    username = "cameron";
+    entries = [
+      { path = "/Applications/Microsoft Edge.app"; }
+      { path = "/Applications/Microsoft Outlook.app"; }
+      { path = "/Applications/Slack.app"; }
+      { path = "/Applications/Royal TSX.app"; }
+      { path = "/Applications/Ghostty.app"; }
+      { path = "/Applications/Visual Studio Code.app"; }
+      { path = "/Applications/Cisco/Cisco Secure Client.app"; }
+      { path = "/Applications/1Password.app"; }
+    ];
+    spacers = [
+      { section = "apps"; after = "/Applications/Visual Studio Code.app"; }
+    ];
+  };
 }

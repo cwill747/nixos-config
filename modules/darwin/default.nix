@@ -1,6 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+  imports = [
+    ./dock
+  ];
+
   users.users.cameron = {
     name = "cameron";
     home = "/Users/cameron";
