@@ -7,13 +7,13 @@
         globalConfig = {
             tools = {
                 nodejs = "latest";
-                golang = "1.20.5";
-                rust = "1.87.0";
+                golang = "latest";
+                rust = "latest";
                 java = "openjdk-24";
-                ruby = "3.4.4";
-                yarn = "1.22.22";
-                python = "3.13.3";
-                bazel = "8.2.1";
+                ruby = "latest";
+                yarn = "latest";
+                python = "latest";
+                bazel = "latest";
                 pnpm = "latest";
             };
         };
