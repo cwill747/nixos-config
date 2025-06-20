@@ -56,6 +56,8 @@
     p7zip
     watch
     coreutils
+
+    inputs.agenix.packages."${system}".default
   ];
 
   programs.fish.enable = true;

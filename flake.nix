@@ -33,9 +33,13 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix }@inputs:
     let
       # System architectures
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
