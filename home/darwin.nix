@@ -2,6 +2,7 @@
 
 {
   # macOS-specific home-manager configuration
+  home.homeDirectory = "/Users/cameron";
 
   # Add macOS-specific paths and settings to fish
   programs.fish = {

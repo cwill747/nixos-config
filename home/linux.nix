@@ -2,6 +2,7 @@
 
 {
   # Linux-specific home-manager configuration
+  home.homeDirectory = "/home/cameron";
 
   nixpkgs = {
     config = {

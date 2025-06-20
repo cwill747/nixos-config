@@ -9,7 +9,6 @@
   ];
 
   home.username = "cameron";
-  home.homeDirectory = "/home/cameron";
 
   # Basic home-manager settings
   home.stateVersion = "24.05";
