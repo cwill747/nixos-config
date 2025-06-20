@@ -70,14 +70,14 @@
     # These can be overridden per-host if needed
     userName = lib.mkDefault "Cameron Will";
     userEmail = lib.mkDefault "stephen.will@tanium.com";  # Work email (overridden on personal mac)
-
+    aliases = {
+      root = "git rev-parse --show-toplevel";
+    };
     extraConfig = {
       init.defaultBranch = "main";
       push.default = "current";
       pull.rebase = true;
-      alias = {
-        root = "git rev-parse --show-toplevel";
-      };
+
     };
     lfs.enable = true;
   };
