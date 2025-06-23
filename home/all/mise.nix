@@ -16,6 +16,11 @@
                 bazel = "latest";
                 pnpm = "latest";
             };
+            settings = {
+                idiomatic_version_file_enable_tools = [
+                    "node"
+                ];
+            };
         };
     };
 }
