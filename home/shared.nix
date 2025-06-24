@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   # Import neovim configuration
@@ -7,6 +7,7 @@
     ./all/tmux.nix
     ./all/fish.nix
     ./all/mise.nix
+    ./all/fonts.nix
   ];
 
   home.username = "cameron";

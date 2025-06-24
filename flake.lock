@@ -228,7 +228,24 @@
         "homebrew-core": "homebrew-core",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750797018,
+        "narHash": "sha256-+XooUIPJ5oO1xU5vmbfsD78k7ivsNTiJNwkzi0qMK5s=",
+        "ref": "refs/heads/main",
+        "rev": "9a6c4899152ee0e7b95b27617308dd4a3d08375f",
+        "revCount": 4,
+        "type": "git",
+        "url": "ssh://git@github.com/cwill747/nixos-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/cwill747/nixos-secrets.git"
       }
     },
     "systems": {

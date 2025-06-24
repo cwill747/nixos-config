@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, pkgs, inputs, agenix, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -57,7 +57,7 @@
     watch
     coreutils
 
-    inputs.agenix.packages."${system}".default
+    inputs.agenix.packages."${pkgs.system}".default
   ];
 
   programs.fish.enable = true;

@@ -37,9 +37,14 @@
     agenix = {
       url = "github:ryantm/agenix";
     };
+
+    secrets = {
+      url = "git+ssh://git@github.com/cwill747/nixos-secrets.git";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets }@inputs:
     let
       # System architectures
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -66,6 +71,7 @@
       homeManagerConfig = { lib, pkgs, ... }: {
         imports = [
           ./home/shared.nix
+          agenix.homeManagerModules.default
         ];
       };
 
@@ -74,6 +80,7 @@
         imports = [
           ./home/shared.nix
           ./home/darwin.nix
+          agenix.homeManagerModules.default
         ];
       };
 
@@ -81,6 +88,7 @@
         imports = [
           ./home/shared.nix
           ./home/linux.nix
+          agenix.homeManagerModules.default
         ];
       };
 
@@ -115,6 +123,7 @@
           modules = [
             ./hosts/work-linux
             home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -189,6 +198,7 @@
                   imports = [
                     ./home/shared.nix
                     ./home/darwin.nix
+                    agenix.homeManagerModules.default
                   ];
                   # Personal Darwin specific git config
                   programs.git = {
@@ -210,6 +220,8 @@
           modules = [
             ./home/shared.nix
             ./home/linux.nix
+            agenix.homeManagerModules.default
+            ./home/all/fonts.nix
             ({ lib, ... }: {
               programs.git = {
                 userEmail = lib.mkForce "stephen.will@tanium.com";
@@ -224,6 +236,7 @@
           modules = [
             ./home/shared.nix
             ./home/linux.nix
+            agenix.homeManagerModules.default
             ({ lib, ... }: {
               programs.git = {
                 userEmail = lib.mkForce "stephen.will@tanium.com";
@@ -239,6 +252,7 @@
           modules = [
             ./home/shared.nix
             ./home/darwin.nix
+            agenix.homeManagerModules.default
           ];
         };
 
@@ -249,6 +263,7 @@
           modules = [
             ./home/shared.nix
             ./home/darwin.nix
+            agenix.homeManagerModules.default
             # Personal Darwin specific overrides
             ({ lib, ... }: {
               programs.git = {

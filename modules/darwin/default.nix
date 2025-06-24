@@ -3,6 +3,8 @@
 {
   imports = [
     ./dock
+    inputs.agenix.darwinModules.default
+    ./secrets.nix
   ];
 
   users.users.cameron = {
@@ -94,6 +96,8 @@
     # macOS-specific applications (moved from Homebrew casks)
     hexfiend  # Hex editor for macOS
     utm        # macOS virtualization
+
+    inputs.agenix.packages."${pkgs.system}".default
   ];
 
   # Common Homebrew configuration
