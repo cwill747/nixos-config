@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./linux/onepassword.nix
+  ];
+
   # Linux-specific home-manager configuration
   home.homeDirectory = "/home/cameron";
 

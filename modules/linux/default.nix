@@ -1,13 +1,26 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+  imports = [
+    inputs.agenix.nixosModules.default
+    ./secrets.nix
+  ];
+
   networking = {
     networkmanager.enable = true;
     firewall.enable = true;
   };
   i18n.defaultLocale = "en_US.UTF-8";
 
-    # System packages
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    # Certain features, including CLI integration and system authentication support,
+    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+    polkitPolicyOwners = [ "cameron" ];
+  };
+
+  # System packages
   environment.systemPackages = with pkgs; [
     # Linux-specific packages
     chromium
@@ -20,6 +33,7 @@
     ninja
 
     corretto21
+    inputs.agenix.packages."${pkgs.system}".default
   ];
   # Services
   services = {
