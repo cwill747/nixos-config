@@ -28,6 +28,8 @@
     ripgrep
     fzf
     mosh
+    openssh
+
 
     eza  # modern replacement for ls (formerly exa)
     bat

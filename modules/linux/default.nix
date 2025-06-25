@@ -13,12 +13,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = [ "cameron" ];
-  };
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -74,10 +68,6 @@
   programs.fish.enable = true;
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 
   # Security settings
   security = {
@@ -95,4 +85,9 @@
   documentation.man.generateCaches = false;
 
   programs.mosh.enable = true;
+
+  programs.ssh = {
+    enableAskPassword = false;
+    startAgent = true;
+  };
 }

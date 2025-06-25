@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./linux/onepassword.nix
   ];
 
   # Linux-specific home-manager configuration
