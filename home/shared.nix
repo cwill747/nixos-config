@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, user, homeDir, ... }:
 
 {
   # Import neovim configuration
@@ -10,7 +10,7 @@
     ./all/fonts.nix
   ];
 
-  home.username = "cameron";
+  home.username = user;
 
   # Basic home-manager settings
   home.stateVersion = "24.05";

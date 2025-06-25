@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, user, homeDir, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -19,6 +19,6 @@
 
   local.dock = {
     enable = false;
-    username = "cameron";
+    username = user;
   };
 }

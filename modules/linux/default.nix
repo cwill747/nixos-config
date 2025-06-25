@@ -1,9 +1,8 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, user, homeDir, ... }:
 
 {
   imports = [
     inputs.agenix.nixosModules.default
-    ./secrets.nix
   ];
 
   networking = {
@@ -43,6 +42,8 @@
     xserver = {
       enable = false;
     };
+    displayManager.gdm.enable = false;
+    desktopManager.gnome.enable = false;
   };
 
   virtualisation = {
@@ -50,7 +51,7 @@
   };
 
   # User configuration
-  users.users.cameron = {
+  users.users.${user} = {
     isNormalUser = true;
     description = "Cameron Will";
     extraGroups = [ "wheel" "networkmanager" "docker" ];

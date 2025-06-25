@@ -2,15 +2,15 @@
   description = "Multi-platform NixOS configuration with Home Manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -96,35 +96,12 @@
         extraSpecialArgs = { inherit inputs; };
       };
 
-      # Home manager configuration builders
-      homeManagerConfig = { lib, pkgs, ... }: {
-        imports = [
-          ./home/shared.nix
-          agenix.homeManagerModules.default
-        ];
-      };
-
-      darwinHomeManagerConfig = { lib, pkgs, ... }: {
-        imports = [
-          ./home/shared.nix
-          ./home/darwin.nix
-          agenix.homeManagerModules.default
-        ];
-      };
-
-      linuxHomeManagerConfig = { lib, pkgs, ... }: {
-        imports = [
-          ./home/shared.nix
-          ./home/linux.nix
-          agenix.homeManagerModules.default
-        ];
-      };
-
       # Function to create Darwin home-manager config with git email override
       mkDarwinHomeManagerConfig = gitEmail: { lib, pkgs, ... }: {
         imports = [
           ./home/shared.nix
           ./home/darwin.nix
+          ./modules/shared/utils.nix
           agenix.homeManagerModules.default
         ];
         programs.git = {
@@ -137,6 +114,7 @@
         imports = [
           ./home/shared.nix
           ./home/linux.nix
+          ./modules/shared/utils.nix
           agenix.homeManagerModules.default
         ];
         programs.git = {
@@ -193,7 +171,7 @@
             agenix.nixosModules.default
             {
               home-manager = baseHomeManagerConfig // {
-                users.cameron = linuxHomeManagerConfig;
+                users.cameron = mkLinuxHomeManagerConfig gitEmails.work;
               };
             }
           ] ++ commonModules ++ commonLinuxModules;
@@ -206,7 +184,7 @@
         "work-darwin" = mkDarwinSystem {
           system = "aarch64-darwin";
           hostPath = ./hosts/work-darwin;
-          homeManagerUser = darwinHomeManagerConfig;
+          homeManagerUser = mkDarwinHomeManagerConfig gitEmails.work;
         };
 
         # Personal Darwin

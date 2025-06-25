@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, user, homeDir, ... }:
 
 {
   # Work-specific system packages (in addition to shared ones)
@@ -42,7 +42,7 @@
 
   local.dock = {
     enable   = true;
-    username = "cameron";
+    username = user;
     entries = [
       { path = "/Applications/Microsoft Edge.app"; }
       { path = "/Applications/Microsoft Outlook.app"; }

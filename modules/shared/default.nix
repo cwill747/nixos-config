@@ -1,6 +1,11 @@
 { lib, pkgs, inputs, agenix, ... }:
 
 {
+  imports = [
+    ./utils.nix
+    ./secrets.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and new nix command

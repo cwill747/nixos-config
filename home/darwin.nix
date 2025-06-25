@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, homeDir, ... }:
 
 {
+
   # macOS-specific home-manager configuration
-  home.homeDirectory = "/Users/cameron";
+  home.homeDirectory = homeDir;
 
   # Add macOS-specific paths and settings to fish
   programs.fish = {

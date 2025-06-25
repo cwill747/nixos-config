@@ -1,10 +1,9 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, user, homeDir, ... }:
 
 {
   imports = [
     ./dock
     inputs.agenix.darwinModules.default
-    ./secrets.nix
   ];
 
   ids.gids.nixbld = 350;
@@ -17,7 +16,7 @@
 
   system = {
     stateVersion = 4;
-    primaryUser = "cameron";
+    primaryUser = user;
 
     defaults = {
       # Dock settings (using work Mac defaults)

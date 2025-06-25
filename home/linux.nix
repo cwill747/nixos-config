@@ -1,17 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, homeDir, ... }:
 
 {
-  imports = [
-  ];
-
   # Linux-specific home-manager configuration
-  home.homeDirectory = "/home/cameron";
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  home.homeDirectory = homeDir;
 
   # Add Linux-specific paths and settings to fish
   programs.fish.shellInit = lib.mkBefore ''
