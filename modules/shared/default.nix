@@ -82,6 +82,8 @@
 
   programs.fish.enable = true;
 
+  environment.shells = [ pkgs.bashInteractive pkgs.zsh pkgs.fish ];
+
   # Time zone (can be overridden per host)
   time.timeZone = lib.mkDefault "America/New_York";
 
