@@ -67,7 +67,36 @@
         ./modules/linux
       ];
 
-      # Home manager configuration shared across systems
+      # Centralized git email configurations
+      gitEmails = {
+        work = "stephen.will@tanium.com";
+        personal = "cameron@thewills.net";
+      };
+
+      # Shared homebrew configuration for all Darwin systems
+      commonHomebrewConfig = {
+        nix-homebrew = {
+          enable = true;
+          user = "cameron";
+          taps = {
+            "homebrew/homebrew-core" = homebrew-core;
+            "homebrew/homebrew-cask" = homebrew-cask;
+            "homebrew/homebrew-bundle" = homebrew-bundle;
+          };
+          mutableTaps = false;
+          autoMigrate = true;
+        };
+      };
+
+      # Shared home-manager base configuration
+      baseHomeManagerConfig = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        backupFileExtension = "backup";
+        extraSpecialArgs = { inherit inputs; };
+      };
+
+      # Home manager configuration builders
       homeManagerConfig = { lib, pkgs, ... }: {
         imports = [
           ./home/shared.nix
@@ -75,7 +104,6 @@
         ];
       };
 
-      # Darwin-specific home manager configuration
       darwinHomeManagerConfig = { lib, pkgs, ... }: {
         imports = [
           ./home/shared.nix
@@ -90,6 +118,47 @@
           ./home/linux.nix
           agenix.homeManagerModules.default
         ];
+      };
+
+      # Function to create Darwin home-manager config with git email override
+      mkDarwinHomeManagerConfig = gitEmail: { lib, pkgs, ... }: {
+        imports = [
+          ./home/shared.nix
+          ./home/darwin.nix
+          agenix.homeManagerModules.default
+        ];
+        programs.git = {
+          userEmail = lib.mkForce gitEmail;
+        };
+      };
+
+      # Function to create Linux home-manager config with git email override
+      mkLinuxHomeManagerConfig = gitEmail: { lib, pkgs, ... }: {
+        imports = [
+          ./home/shared.nix
+          ./home/linux.nix
+          agenix.homeManagerModules.default
+        ];
+        programs.git = {
+          userEmail = lib.mkForce gitEmail;
+        };
+      };
+
+      # Function to create a base Darwin system configuration
+      mkDarwinSystem = { system, hostPath, homeManagerUser }: nix-darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          hostPath
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            inherit (commonHomebrewConfig) nix-homebrew;
+            home-manager = baseHomeManagerConfig // {
+              users.cameron = homeManagerUser;
+            };
+          }
+        ] ++ commonModules ++ commonDarwinModules;
       };
 
     in {
@@ -107,9 +176,7 @@
             echo "  nixos-rebuild switch --flake .#cwill-nixos-jump"
             echo "  darwin-rebuild switch --flake .#work-darwin"
             echo "  darwin-rebuild switch --flake .#personal-darwin"
-            echo "  home-manager switch --flake .#cameron@cwill-nixos-jump"
-            echo "  home-manager switch --flake .#cameron@work-darwin"
-            echo "  home-manager switch --flake .#cameron@personal-darwin"
+            echo "  home-manager switch --flake .#cameron@work-linux"
           '';
         };
       });
@@ -125,12 +192,8 @@
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
             {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
+              home-manager = baseHomeManagerConfig // {
                 users.cameron = linuxHomeManagerConfig;
-                extraSpecialArgs = { inherit inputs; };
               };
             }
           ] ++ commonModules ++ commonLinuxModules;
@@ -140,75 +203,17 @@
       # Darwin configurations (for macOS systems)
       darwinConfigurations = {
         # Work Darwin
-        "work-darwin" = nix-darwin.lib.darwinSystem {
+        "work-darwin" = mkDarwinSystem {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/work-darwin
-            home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                user = "cameron";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
-                };
-                mutableTaps = false;
-                autoMigrate = true;
-              };
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                users.cameron = darwinHomeManagerConfig;
-                extraSpecialArgs = { inherit inputs; };
-              };
-            }
-          ] ++ commonModules ++ commonDarwinModules;
+          hostPath = ./hosts/work-darwin;
+          homeManagerUser = darwinHomeManagerConfig;
         };
 
         # Personal Darwin
-        "personal-darwin" = nix-darwin.lib.darwinSystem {
+        "personal-darwin" = mkDarwinSystem {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/personal-darwin
-            home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                user = "cameron";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
-                };
-                mutableTaps = false;
-                autoMigrate = true;
-              };
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                users.cameron = { lib, pkgs, ... }: {
-                  imports = [
-                    ./home/shared.nix
-                    ./home/darwin.nix
-                    agenix.homeManagerModules.default
-                  ];
-                  # Personal Darwin specific git config
-                  programs.git = {
-                    userEmail = lib.mkForce "cameron@thewills.net";
-                  };
-                };
-                extraSpecialArgs = { inherit inputs; };
-              };
-            }
-          ] ++ commonModules ++ commonDarwinModules;
+          hostPath = ./hosts/personal-darwin;
+          homeManagerUser = mkDarwinHomeManagerConfig gitEmails.personal;
         };
       };
 
@@ -222,11 +227,7 @@
             ./home/linux.nix
             agenix.homeManagerModules.default
             ./home/all/fonts.nix
-            ({ lib, ... }: {
-              programs.git = {
-                userEmail = lib.mkForce "stephen.will@tanium.com";
-              };
-            })
+            (mkLinuxHomeManagerConfig gitEmails.work)
           ];
         };
       };
