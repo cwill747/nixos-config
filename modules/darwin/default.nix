@@ -105,7 +105,7 @@
   homebrew = {
     enable = true;
     onActivation = {
-      cleanup = "none";  # Don't uninstall programs not listed
+      cleanup = "zap";  # Don't uninstall programs not listed
       autoUpdate = true;
       upgrade = true;
     };
