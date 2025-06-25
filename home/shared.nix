@@ -26,7 +26,6 @@
     curl
     wget
     jq
-    delta
     yq
     go
     nodejs
@@ -44,6 +43,7 @@
     direnv
     mise
     pre-commit
+    shellcheck
 
     # System monitoring
     htop

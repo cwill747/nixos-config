@@ -45,6 +45,8 @@
     rustup
     pkg-config
     firefox
+    gh
+
     # DevOps and Infrastructure (basic tools)
     kubectl
     k9s
@@ -68,6 +70,10 @@
 
     # Secrets
     age
+
+    # Shells
+    bashInteractive
+    zsh
   ];
 
   programs.fish.enable = true;

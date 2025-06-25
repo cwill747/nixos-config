@@ -6,12 +6,19 @@
     # DevOps tools that may have license issues
     terraform
     ansible
+    ant
+
+    # Programming languages
+    powershell
 
     # Database tools
     postgresql
 
     # Network analysis
     wireshark-cli  # CLI version for macOS
+
+    # API tools
+    govc
   ];
 
   # Work-specific Homebrew configuration (extends shared config)
