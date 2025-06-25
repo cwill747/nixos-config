@@ -14,7 +14,11 @@
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "root" "@admin" "@wheel" ];
     };
-
+    gc = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      options = "--delete-older-than 30d";
+    };
     # Keep inputs available for debugging
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
   };

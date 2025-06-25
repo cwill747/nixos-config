@@ -161,13 +161,7 @@
   # Enable nix-darwin to manage the system
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "root" "cameron" ];
-    };
-    gc = {
-      automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
-      options = "--delete-older-than 30d";
+      trusted-users = [ "root" user];
     };
   };
 }
