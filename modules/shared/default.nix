@@ -65,6 +65,9 @@
     coreutils
 
     inputs.agenix.packages."${pkgs.system}".default
+
+    # Secrets
+    age
   ];
 
   programs.fish.enable = true;
