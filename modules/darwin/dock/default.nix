@@ -70,7 +70,40 @@ in
           [ "%20" "%21" "%22" "%23" "%24" "%25" "%26" "%27" "%28" "%29" ]
           (normalize path)
         );
-      wantURIs    = concatMapStrings (entry: "${entryURI entry.path}\n") cfg.entries;
+
+      # Create a list of entries with spacers inserted in the correct positions
+      entriesWithSpacers =
+        let
+          # Function to insert spacers after specific entries
+          insertSpacers = entries: spacers:
+            if spacers == [] then entries
+            else
+              let
+                spacer = head spacers;
+                restSpacers = tail spacers;
+                # Find the index of the entry to add spacer after
+                entryIndex = findFirst
+                  (i: (elemAt entries i).path == spacer.after)
+                  null
+                  (range 0 (length entries - 1));
+              in
+              if entryIndex == null then
+                # If the "after" entry is not found, just continue with remaining spacers
+                insertSpacers entries restSpacers
+              else
+                let
+                  beforeEntries = take (entryIndex + 1) entries;
+                  afterEntries = drop (entryIndex + 1) entries;
+                  spacerEntry = { path = ""; section = spacer.section; options = ""; };
+                in
+                insertSpacers (beforeEntries ++ [ spacerEntry ] ++ afterEntries) restSpacers;
+        in
+        insertSpacers cfg.entries cfg.spacers;
+
+      wantURIs = concatMapStrings
+        (entry: if entry.path == "" then "\n" else "${entryURI entry.path}\n")
+        entriesWithSpacers;
+
       createEntries =
         concatMapStrings
           (entry:
