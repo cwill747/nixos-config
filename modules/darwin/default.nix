@@ -8,9 +8,9 @@
 
   ids.gids.nixbld = 350;
 
-  users.users.cameron = {
-    name = "cameron";
-    home = "/Users/cameron";
+  users.users.${user} = {
+    name = user;
+    home = homeDir;
     shell = pkgs.fish;
   };
 
