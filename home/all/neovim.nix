@@ -848,7 +848,7 @@
     # Formatters and linters (Nix-managed)
     black    # Python formatter
     ruff     # Python linter/formatter (faster than black+flake8)
-    prettier # JavaScript/CSS/etc formatter
+    nodePackages.prettier # JavaScript/CSS/etc formatter
     stylua   # Lua formatter
     shfmt    # Shell script formatter
     nixpkgs-fmt  # Nix formatter

@@ -2,10 +2,10 @@
   description = "Multi-platform NixOS configuration with Home Manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -225,49 +225,6 @@
             ({ lib, ... }: {
               programs.git = {
                 userEmail = lib.mkForce "stephen.will@tanium.com";
-              };
-            })
-          ];
-        };
-        # Work Linux system with standalone home-manager
-        "cameron@cwill-nixos-jump" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home/shared.nix
-            ./home/linux.nix
-            agenix.homeManagerModules.default
-            ({ lib, ... }: {
-              programs.git = {
-                userEmail = lib.mkForce "stephen.will@tanium.com";
-              };
-            })
-          ];
-        };
-
-        # Work Darwin with standalone home-manager
-        "cameron@work-darwin" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home/shared.nix
-            ./home/darwin.nix
-            agenix.homeManagerModules.default
-          ];
-        };
-
-        # Personal Darwin with standalone home-manager
-        "cameron@personal-darwin" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home/shared.nix
-            ./home/darwin.nix
-            agenix.homeManagerModules.default
-            # Personal Darwin specific overrides
-            ({ lib, ... }: {
-              programs.git = {
-                userEmail = lib.mkForce "cameron@thewills.net";
               };
             })
           ];
