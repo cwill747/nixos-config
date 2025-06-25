@@ -1,9 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  # Fix for GID mismatch - set to match existing Nix installation
-  ids.gids.nixbld = 350;
-
   # Work-specific system packages (in addition to shared ones)
   environment.systemPackages = with pkgs; [
     # DevOps tools that may have license issues

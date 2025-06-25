@@ -1,9 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  # Personal-specific system packages (in addition to shared ones)
   environment.systemPackages = with pkgs; [
-    youtube-dl
   ];
 
   # Personal-specific Homebrew configuration (extends shared config)
@@ -17,5 +15,10 @@
       "discord"
       "steam"
     ];
+  };
+
+  local.dock = {
+    enable = false;
+    username = "cameron";
   };
 }

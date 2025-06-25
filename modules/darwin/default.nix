@@ -7,6 +7,8 @@
     ./secrets.nix
   ];
 
+  ids.gids.nixbld = 350;
+
   users.users.cameron = {
     name = "cameron";
     home = "/Users/cameron";
@@ -127,8 +129,6 @@
       "firefox"
       "font-hack-nerd-font"
       "font-hack"
-      "font-haskplex-nerd"
-      "font-haskplex"
       "ghostty"
       "github"
       "google-chrome"
