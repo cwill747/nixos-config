@@ -42,9 +42,14 @@
       url = "git+ssh://git@github.com/cwill747/nixos-secrets.git";
       flake = false;
     };
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets, lix-module }@inputs:
     let
       # System architectures
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -169,6 +174,7 @@
             ./hosts/work-linux
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
+            lix-module.nixosModules.default
             {
               home-manager = baseHomeManagerConfig // {
                 users.cameron = mkLinuxHomeManagerConfig gitEmails.work;
