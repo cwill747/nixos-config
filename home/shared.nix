@@ -8,6 +8,7 @@
     ./all/fish.nix
     ./all/mise.nix
     ./all/fonts.nix
+    ./all/wezterm.nix
   ];
 
   home.username = user;
