@@ -37,6 +37,7 @@
     fzf
     mosh
     openssh
+    wezterm
 
 
     eza  # modern replacement for ls (formerly exa)
