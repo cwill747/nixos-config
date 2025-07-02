@@ -71,6 +71,9 @@
 
       config.font = wezterm.font('TX-02')
 
+      -- Enable SSH key forwarding
+      config.mux_enable_ssh_agent = false
+
       local success, ssh_config = pcall(require, 'ssh')
       if success then
         config.ssh_domains = ssh_config.ssh_domains
