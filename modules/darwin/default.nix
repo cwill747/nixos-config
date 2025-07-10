@@ -81,6 +81,7 @@
 
   # Common macOS system packages
   environment.systemPackages = with pkgs; [
+    imagemagick
     # macOS development tools
     xcode-install
 

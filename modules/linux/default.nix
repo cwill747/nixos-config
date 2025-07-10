@@ -15,17 +15,10 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    # Linux-specific packages
-    chromium
-
     # System utilities
     usbutils
     pciutils
     lshw
-
-    ninja
-
-    corretto21
     inputs.agenix.packages."${pkgs.system}".default
   ];
   # Services
@@ -39,11 +32,6 @@
         PermitRootLogin = "no";
       };
     };
-    xserver = {
-      enable = false;
-    };
-    displayManager.gdm.enable = false;
-    desktopManager.gnome.enable = false;
   };
 
   virtualisation = {
@@ -63,7 +51,6 @@
     ];
   };
 
-  programs.firefox.enable = true;
   programs.fish.enable = true;
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;

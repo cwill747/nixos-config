@@ -182,6 +182,18 @@
             }
           ] ++ commonModules ++ commonLinuxModules;
         };
+
+        "common-iso" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            agenix.nixosModules.default
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+            ./modules/shared
+            ./modules/linux
+          ];
+        };
       };
 
       # Darwin configurations (for macOS systems)
