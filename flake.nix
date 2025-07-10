@@ -187,7 +187,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/work-linux
+            ./hosts/attic
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
             lix-module.nixosModules.default
