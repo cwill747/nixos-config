@@ -33,11 +33,11 @@
     cmake
   ];
 
-  xserver = {
+  services.xserver = {
     enable = false;
   };
-  displayManager.gdm.enable = false;
-  desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
+  services.desktopManager.gnome.enable = false;
 
   programs.nix-ld = {
     enable = true;

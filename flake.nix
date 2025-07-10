@@ -47,9 +47,13 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    attic = {
+      url = "github:zhaofengli/attic";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets, lix-module }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets, lix-module, attic }@inputs:
     let
       # System architectures
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -191,6 +195,7 @@
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
             lix-module.nixosModules.default
+            attic.nixosModules.atticd
             {
               home-manager = baseHomeManagerConfig // {
                 users.cameron = mkLinuxHomeManagerConfig gitEmails.personal;
