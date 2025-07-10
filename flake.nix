@@ -183,6 +183,22 @@
           ] ++ commonModules ++ commonLinuxModules;
         };
 
+        "attic" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/work-linux
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
+            lix-module.nixosModules.default
+            {
+              home-manager = baseHomeManagerConfig // {
+                users.cameron = mkLinuxHomeManagerConfig gitEmails.personal;
+              };
+            }
+          ] ++ commonModules ++ commonLinuxModules;
+        };
+
         "common-iso" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
