@@ -72,8 +72,8 @@
 
   programs.mosh.enable = true;
 
-  programs.ssh = {
-    enableAskPassword = false;
-    startAgent = true;
-  };
+  # programs.ssh = {
+  #   enableAskPassword = false;
+  #   startAgent = true;
+  # };
 }
