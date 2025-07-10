@@ -2,7 +2,7 @@
   description = "Multi-platform NixOS configuration with Home Manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:cwill747/nixpkgs/cam/main";
 
     home-manager = {
       url = "github:nix-community/home-manager";
