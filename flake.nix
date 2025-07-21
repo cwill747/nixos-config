@@ -48,12 +48,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     attic = {
       url = "github:zhaofengli/attic";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets, lix-module, attic }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, agenix, secrets, lix-module, attic, nixos-generators }@inputs:
     let
       # System architectures
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -147,7 +152,6 @@
           }
         ] ++ commonModules ++ commonDarwinModules;
       };
-
     in {
       # Development shells
       devShells = forAllSystems (system: {
@@ -167,6 +171,14 @@
           '';
         };
       });
+
+      nixosModules.myFormats = { config, ... }: {
+        imports = [
+          nixos-generators.nixosModules.all-formats
+        ];
+
+        nixpkgs.hostPlatform = "x86_64-linux";
+      };
 
       # NixOS configurations (for Linux systems)
       nixosConfigurations = {
@@ -207,9 +219,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            agenix.nixosModules.default
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+            self.nixosModules.myFormats
+            ./modules/iso
             ./modules/shared
             ./modules/linux
           ];
