@@ -194,7 +194,6 @@
             ./hosts/attic
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
-            lix-module.nixosModules.default
             attic.nixosModules.atticd
             {
               home-manager = baseHomeManagerConfig // {

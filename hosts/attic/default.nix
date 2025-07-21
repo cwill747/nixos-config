@@ -15,8 +15,12 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  networking.firewall.allowedTCPPorts = [ 8080 ];
+
   networking.hostName = "attic"; # Define your hostname.
-  
+  environment.systemPackages = with pkgs; [
+    attic
+  ];
   # Enable networking
   networking.networkmanager.enable = true;
 
