@@ -54,14 +54,6 @@
       "ev" = "vim ~/.config/nvim/init.vim";
       "ea" = "vim ~/.config/fish/aliases.fish";
       "ef" = "vim ~/.config/fish/config.fish";
-
-      # SSH with proper terminal
-      "ssh" = "TERM=xterm-256color /usr/bin/ssh";
-
-      # Tool aliases
-      "asdf" = "mise";
-      "rtx" = "mise";
-      "yadm" = "chezmoi";
     };
 
     # Fish functions - translate key functions from the provided config
