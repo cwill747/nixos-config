@@ -99,6 +99,8 @@
     hexfiend  # Hex editor for macOS
     utm        # macOS virtualization
 
+    claude-code
+
     inputs.agenix.packages."${pkgs.system}".default
   ];
 
