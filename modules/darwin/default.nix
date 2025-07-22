@@ -127,7 +127,6 @@
       "betterdisplay"
       "beyond-compare"
       "db-browser-for-sqlite"
-      "docker"
       "firefox"
       "font-hack-nerd-font"
       "font-hack"
