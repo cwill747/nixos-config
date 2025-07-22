@@ -38,7 +38,7 @@
     mosh
     openssh
     wezterm
-
+    attic-client
 
     eza  # modern replacement for ls (formerly exa)
     bat
