@@ -31,6 +31,7 @@
     libtool
     ninja
     cmake
+    jetbrains.clion
   ];
 
   services.xserver = {

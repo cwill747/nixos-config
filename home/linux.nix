@@ -33,11 +33,8 @@
   };
 
   home.packages = with pkgs; [
-    jetbrains.clion
     jetbrains.jdk
     docker
     docker-compose
-    llvmPackages_18.stdenv
-    gcc13
   ];
 }
