@@ -3,7 +3,9 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,7 +32,7 @@ jobs:
       - run: |
           sudo mkdir -p /etc/nix
           echo "machine attic.thewills.net password ${{ secrets.ATTIC_TOKEN }}" | sudo tee /etc/nix/netrc > /dev/null
-          git config --global url."https://${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com          
+          git config --global url."https://${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
@@ -43,7 +45,7 @@ jobs:
             max-substitution-jobs = 128
             extra-platforms = aarch64-linux
             substituters = https://attic.thewills.net/system?priority=43 https://nix-community.cachix.org?priority=41 https://cache.nixos.org/
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= system:9z9dBJiMRRWO+DXSiPTAW8UV2D/Se3BdgJuGBjRzoSg= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=            
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= system:9z9dBJiMRRWO+DXSiPTAW8UV2D/Se3BdgJuGBjRzoSg= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
       # We build each system in a separate job, targeting the configuration using matrix.machine.host
