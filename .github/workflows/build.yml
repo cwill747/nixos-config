@@ -14,7 +14,10 @@ jobs:
         machine:
           - host: attic
             platform: x86-64-linux
-
+          - host: cwill-nixos-jump
+            platform: x86-64-linux
+          - host: common-iso
+            platform: x86-64-linux
     steps:
       - uses: actions/checkout@v4
 
