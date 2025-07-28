@@ -78,6 +78,9 @@
     # Shells
     bashInteractive
     zsh
+
+    # Run files from nixpkgs without installing
+    comma
   ];
 
   programs.fish.enable = true;
