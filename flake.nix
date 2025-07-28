@@ -190,7 +190,6 @@
             ./hosts/work-linux
             home-manager.nixosModules.home-manager
             agenix.nixosModules.default
-            lix-module.nixosModules.default
             {
               home-manager = baseHomeManagerConfig // {
                 users.cameron = mkLinuxHomeManagerConfig gitEmails.work;
