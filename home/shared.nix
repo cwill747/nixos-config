@@ -123,5 +123,7 @@
     changeDirWidgetCommand = "fd --type d";
   };
 
+  home.file.".inputrc".text = "set editing-mode vi";
+
   # Neovim configuration is imported from ./neovim.nix
 }
