@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    discord
   ];
 
   # Personal-specific Homebrew configuration (extends shared config)
@@ -12,7 +13,6 @@
 
     # Personal Homebrew casks (in addition to shared ones)
     casks = [
-      "discord"
       "steam"
     ];
   };

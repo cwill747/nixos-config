@@ -99,7 +99,11 @@
     hexfiend  # Hex editor for macOS
     utm        # macOS virtualization
 
+    # Editor things
     claude-code
+    vscode
+
+    ghostty-bin
 
     inputs.agenix.packages."${pkgs.system}".default
   ];
@@ -130,7 +134,6 @@
       "firefox"
       "font-hack-nerd-font"
       "font-hack"
-      "ghostty"
       "github"
       "google-chrome"
       "intellij-idea"
@@ -143,7 +146,6 @@
       "remarkable"
       "royal-tsx"
       "steelseries-gg"
-      "visual-studio-code"
       "vlc"
       "windows-app"
     ];
