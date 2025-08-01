@@ -29,6 +29,7 @@
     git-lfs
     vim
     neovim
+    helix
     curl
     wget
     htop
