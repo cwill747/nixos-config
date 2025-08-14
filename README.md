@@ -19,28 +19,42 @@ Features:
 1. **Install Nix with flakes support:**
    ```bash
    # Install Nix using the Determinate Systems installer (recommended)
-   curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh
+   curl -fsSL https://install.determinate.systems/nix | sh -s -- install
    ```
 
-2. **For macOS**: Install nix-darwin
-   ```bash
-   nix run nix-darwin -- switch --flake .#work-darwin
-   ```
+Answer "no" when asked if you want to install determinate nix. We want upstream
+nix.
 
 ### Installation
 
 1. **Clone this repository:**
-   ```bash
-   git clone git@github.com:cwill747/nixos-config.git ~/.config/nixos
-   cd ~/.config/nixos
-   ```
+```bash
+git clone git@github.com:cwill747/nixos-config.git ~/.config/nixos
+cd ~/.config/nixos
+```
 
-2. **Choose your installation method based on your system:**
+2. Configure Attic (optional)
+
+To pull bits fast, configure attic with:
+
+```shell
+nix-shell -p github:zhaofengli/attic#attic-client
+attic login central <attic_url> <attic_token>
+```
+
+3. **Build initial configuration:**
 
 #### macOS (nix-darwin)
 
-```bash
-darwin-rebuild switch --flake .#$(hostname)
+For the first install, `darwin-rebuild` won't be available. Build with:
+
+```shell
+nix build .#darwinConfigurations.personal-darwin.system
+```
+
+Then run
+```shell
+sudo ./result/activate
 ```
 
 #### Ubuntu/Linux with Nix Package Manager (Home Manager only)
@@ -51,7 +65,12 @@ For regular Ubuntu/Linux systems where you've installed just the Nix package man
 nix run home-manager/master -- switch --flake .#$(whoami)@$(hostname)
 ```
 
-**Note**: `nixos-rebuild` is NOT available when you install Nix on Ubuntu - that command only exists on full NixOS systems. Use Home Manager instead.
+If you have issues with building and SSL certs - 
+
+```shell
+sudo rm /etc/ssl/certs/ca-certificates.crt
+sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+```
 
 #### Full NixOS System (if running NixOS as your OS)
 
@@ -60,87 +79,6 @@ Only use this if you're running NixOS as your operating system (not Ubuntu with 
 ```bash
 sudo nixos-rebuild switch --flake .#$(hostname)
 ```
-
-## Configuration Structure
-
-```
-.
-├── flake.nix                 # Main flake configuration
-├── modules/
-│   └── shared/
-│       └── default.nix       # Shared system configuration
-├── home/
-│   ├── shared.nix           # Shared home-manager configuration
-│   ├── neovim.nix           # Comprehensive neovim configuration
-│   ├── darwin.nix           # macOS-specific home configuration
-│   └── linux.nix            # Linux-specific home configuration
-└── hosts/
-    ├── ubuntu/
-    │   ├── default.nix      # Ubuntu system configuration
-    │   └── hardware-configuration.nix
-    ├── work-mac/
-    │   └── default.nix      # Work Mac configuration
-    └── personal-mac/
-        └── default.nix      # Personal Mac configuration
-```
-
-## Fish Shell Configuration
-
-The Fish shell configuration is automatically installed and configured with:
-
-- **Git prompt** with branch status and upstream indicators
-- **Aliases** for common commands (`vim` → `nvim`, `asdf` → `mise`, etc.)
-- **Functions** from your existing setup:
-  - `cleanpycs` - Clean Python cache files
-  - `gr` - Go to git repository root
-  - `t` - Create and enter temporary directory
-  - `varga` - Clean up merged git branches
-  - `gf` - Download file to temporary location
-- **Plugins**:
-  - `z` - Directory jumping
-  - `fzf.fish` - Fuzzy finding integration
-  - `pure` - Minimal prompt
-- **Environment variables** and path configuration
-- **Platform-specific paths** (Homebrew on macOS, Linux-specific paths)
-
-Fish is automatically set as the default shell on all systems.
-
-## Neovim Configuration
-
-The Neovim configuration is fully translated from your existing setup and includes:
-
-- **LSP Support**: Language servers for Lua, Python, TypeScript, and Rust
-- **Completion**: Full autocomplete with nvim-cmp and language server integration
-- **Fuzzy Finding**: Telescope for file/text search (replacing fzf functionality)
-- **Git Integration**: Fugitive, GitGutter, and git-related keybindings
-- **Syntax Highlighting**: Treesitter with all grammars
-- **File Management**: NERDTree for file exploration
-- **Text Manipulation**: Surround, multiple cursors, commenting, etc.
-- **Movement**: EasyMotion and enhanced search with incsearch
-- **Appearance**: Gruvbox theme, Lightline status bar, custom highlights
-- **All Key Mappings**: Space as leader, all your custom keybindings preserved
-
-**Key Features Preserved:**
-- `<Space>` as leader key
-- `jk` to escape insert mode
-- `q` disabled (no recording)
-- Window/tab management (`<Leader>w*`, `<Leader>t*`)
-- Git shortcuts (`<Leader>g*`)
-- Telescope shortcuts (`<Leader>f*`)
-- All movement and editing customizations
-
-**Language Servers Included:**
-- `lua-language-server` (Lua)
-- `pyright` (Python)
-- `typescript-language-server` (JavaScript/TypeScript)
-- `rust-analyzer` (Rust)
-
-**Note**: Some plugins that weren't available in nixpkgs were removed:
-- `scratch-vim`, `vim-autoswap`, `TaskList-vim`, `matchit-zip`
-- `html5-vim`, `scss-syntax-vim` (may be available, excluded for now)
-- `vim-conflicted`, `markdown-preview.nvim` (not in nixpkgs)
-
-The core functionality and all essential plugins are preserved.
 
 ## Customization
 
@@ -219,17 +157,6 @@ The configuration automatically detects the platform and applies appropriate set
 2. Verify system architecture: `uname -m`
 3. Ensure correct flake target is used
 
-## Features by Platform
-
-| Feature | macOS | Ubuntu/Linux with Nix | Full NixOS |
-|---------|-------|----------------------|------------|
-| Fish Shell | ✅ | ✅ | ✅ |
-| Home Manager | ✅ | ✅ | ✅ |
-| System Management | nix-darwin | ❌ (Home Manager only) | NixOS |
-| Homebrew Integration | ✅ | ❌ | ❌ |
-| GUI Applications | Homebrew Casks | System package manager | Nixpkgs |
-| System Defaults | ✅ | ❌ | ✅ |
-
 ## Development
 
 To test changes without applying:
@@ -244,20 +171,6 @@ nix build .#darwinConfigurations.$(hostname).system
 # Check all configurations
 nix flake check
 ```
-
-## Contributing
-
-1. Make changes in appropriate configuration files
-2. Test on your target platform
-3. Ensure flake check passes: `nix flake check`
-4. Update documentation if needed
-
-## Notes
-
-- The Ubuntu hardware configuration is a placeholder - generate the real one with `nixos-generate-config`
-- SSH keys need to be added to the respective host configurations
-- Git configuration is set up with work email as default, personal email for personal Mac
-- Some applications may require additional manual setup after installation
 
 ## License
 
